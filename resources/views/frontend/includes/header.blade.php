@@ -218,7 +218,7 @@
                     <x-frontend.nav-item :href="route('frontend.tags.index')" :active="request()->routeIs('frontend.tags.*')">
                         {{ __('Tags') }}
                     </x-frontend.nav-item>
-                    <x-frontend.nav-item href="https://nasirkhn.com" target="_blank">
+                    <x-frontend.nav-item href="https://nasibakar.com" target="_blank">
                         {{ __('Contact') }}
                     </x-frontend.nav-item>
                 </ul>

@@ -31,7 +31,7 @@
                     </span>
                 </a>
                 <a class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-800"
-                    href="https://nasirkhn.com" target="_blank">
+                    href="https://nasibakar.com" target="_blank">
                     <svg class="icon icon-tabler icons-tabler-outline icon-tabler-world-www"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

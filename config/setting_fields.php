@@ -14,7 +14,7 @@ return [
                 'label' => 'App Name', // you know what label it is
                 'rules' => 'required|min:2|max:50', // validation rule of laravel
                 'class' => '', // any class for input
-                'value' => 'Laravel Starter', // default value if you want
+                'value' => 'Nasi Bakar App', // default value if you want
             ],
             [
                 'type' => 'text', // input fields type
@@ -23,7 +23,7 @@ return [
                 'label' => 'App Description', // you know what label it is
                 'rules' => 'required', // validation rule of laravel
                 'class' => '', // any class for input
-                'value' => 'Laravel Starter is a CMS like modular starter application project built with latest Laravel. This starter project can be used as a foundation to build your own projects.', // default value if you want
+                'value' => 'Nasi Bakar App.', // default value if you want
             ],
             [
                 'type' => 'text', // input fields type
@@ -32,7 +32,7 @@ return [
                 'label' => 'Footer Text', // you know what label it is
                 'rules' => 'required|min:2', // validation rule of laravel
                 'class' => '', // any class for input
-                'value' => '<a href="https://github.com/nasirkhan/laravel-starter/" class="text-muted">Built with ♥ from Bangladesh</a>', // default value if you want
+                'value' => 'nasibakar corp.', // default value if you want
             ],
             [
                 'type' => 'checkbox', // input fields type
@@ -76,7 +76,7 @@ return [
                 'label' => 'Website URL', // you know what label it is
                 'rules' => 'nullable|max:191', // validation rule of laravel
                 'class' => '', // any class for input
-                'value' => 'https://nasirkhn.com', // default value if you want
+                'value' => 'https://nasibakar.com', // default value if you want
             ],
             [
                 'type' => 'text', // input fields type
@@ -157,7 +157,7 @@ return [
                 'label' => 'Meta Site Name', // you know what label it is
                 'rules' => 'required', // validation rule of laravel
                 'class' => '', // any class for input
-                'value' => 'Laravel Starter | An Awesome Laravel Starter Project', // default value if you want
+                'value' => 'Nasi Bakar App | An Awesome Nasi Bakar App Project', // default value if you want
             ],
             [
                 'type' => 'text', // input fields type
@@ -166,7 +166,7 @@ return [
                 'label' => 'Meta Description', // you know what label it is
                 'rules' => 'required', // validation rule of laravel
                 'class' => '', // any class for input
-                'value' => 'Laravel Starter is a CMS like modular starter application project built with latest Laravel. This starter project can be used as a foundation to build your own projects.', // default value if you want
+                'value' => 'Nasi Bakar App is a CMS like modular starter application project built with latest Laravel. This starter project can be used as a foundation to build your own projects.', // default value if you want
             ],
             [
                 'type' => 'text', // input fields type
@@ -175,7 +175,7 @@ return [
                 'label' => 'Meta Keyword', // you know what label it is
                 'rules' => 'nullable', // validation rule of laravel
                 'class' => '', // any class for input
-                'value' => 'Web Application, web app, Laravel, Laravel starter, Bootstrap, Admin, Template, Open Source, nasir khan saikat, nasirkhansaikat', // default value if you want
+                'value' => 'Web Application, web app, Laravel, Nasi Bakar App, Bootstrap, Admin, Template, Open Source, nasir khan saikat, nasirkhansaikat', // default value if you want
             ],
             [
                 'type' => 'text', // input fields type

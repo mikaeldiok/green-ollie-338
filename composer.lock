@@ -2754,7 +2754,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Module Manager & Generator for Laravel Starter Kit (https://github.com/nasirkhan/laravel-starter)",
+            "description": "Module Manager & Generator for Nasi Bakar App Kit (https://github.com/nasirkhan/laravel-starter)",
             "homepage": "https://github.com/nasirkhan/module-manager",
             "keywords": [
                 "laravel-starter",
