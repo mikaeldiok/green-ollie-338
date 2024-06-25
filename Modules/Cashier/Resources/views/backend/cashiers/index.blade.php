@@ -52,22 +52,48 @@
                                 #
                             </th>
                             <th>
-                                @lang("Gambar")
+                                @lang("cashier::text.name")
                             </th>
                             <th>
-                                @lang("Nama")
+                                @lang("cashier::text.slug")
                             </th>
                             <th>
-                                @lang("Harga")
+                                @lang("cashier::text.updated_at")
                             </th>
                             <th>
-                                @lang("Slider?")
+                                @lang("cashier::text.created_by")
                             </th>
                             <th class="text-end">
-                                @lang("menu::text.action")
+                                @lang("cashier::text.action")
                             </th>
                         </tr>
                     </thead>
+
+                    <tbody>
+                        @foreach($$module_name as $module_name_singular)
+                        <tr>
+                            <td>
+                                {{ $module_name_singular->id }}
+                            </td>
+                            <td>
+                                <a href="{{ url("admin/$module_name", $module_name_singular->id) }}">{{ $module_name_singular->name }}</a>
+                            </td>
+                            <td>
+                                {{ $module_name_singular->slug }}
+                            </td>
+                            <td>
+                                {{ $module_name_singular->updated_at->diffForHumans() }}
+                            </td>
+                            <td>
+                                {{ $module_name_singular->created_by }}
+                            </td>
+                            <td class="text-end">
+                                <a href='{!!route("backend.$module_name.edit", $module_name_singular)!!}' class='btn btn-sm btn-primary mt-1' data-toggle="tooltip" title="Edit {{ ucwords(Str::singular($module_name)) }}"><i class="fas fa-wrench"></i></a>
+                                <a href='{!!route("backend.$module_name.show", $module_name_singular)!!}' class='btn btn-sm btn-success mt-1' data-toggle="tooltip" title="Show {{ ucwords(Str::singular($module_name)) }}"><i class="fas fa-tv"></i></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -76,62 +102,15 @@
         <div class="row">
             <div class="col-7">
                 <div class="float-left">
-
+                    Total {{ $$module_name->total() }} {{ ucwords($module_name) }}
                 </div>
             </div>
             <div class="col-5">
                 <div class="float-end">
-
+                    {!! $$module_name->render() !!}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 @endsection
-
-@push ('after-styles')
-<!-- DataTables Core and Extensions -->
-<link rel="stylesheet" href="{{ asset('vendor/datatable/datatables.min.css') }}">
-@endpush
-
-@push ('after-scripts')
-<!-- DataTables Core and Extensions -->
-<script type="module" src="{{ asset('vendor/datatable/datatables.min.js') }}"></script>
-
-<script type="module">
-    $('#datatable').DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: true,
-        ajax: '{{ route("backend.$module_name.index_data") }}',
-        columns: [{
-                data: 'id',
-                name: 'id'
-            },
-            {
-                data: 'image',
-                name: 'image'
-            },
-            {
-                data: 'name',
-                name: 'name'
-            },
-            {
-                data: 'price',
-                name: 'price'
-            },
-            {
-                data: 'on_slider',
-                name: 'on_slider'
-            },
-            {
-                data: 'action',
-                name: 'action',
-                orderable: false,
-                searchable: false
-            }
-        ]
-    });
-</script>
-@endpush

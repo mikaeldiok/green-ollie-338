@@ -45,7 +45,7 @@ class FoodsController extends BackendBaseController
         $page_heading = label_case($module_title);
         $title = $page_heading.' '.label_case($module_action);
 
-        $$module_name = $module_model::select('id', 'name','image','price', 'updated_at');
+        $$module_name = $module_model::select('id', 'name','image','price', 'on_slider','updated_at');
 
         $data = $$module_name;
 
@@ -66,18 +66,9 @@ class FoodsController extends BackendBaseController
             ->editColumn('name', '<strong>{{$name}}</strong>')
             ->editColumn('price', 'Rp{{number_format($price, 2, ",", ".")}}')
 
-            ->editColumn('updated_at', function ($data) {
-                $module_name = $this->module_name;
 
-                $diff = Carbon::now()->diffInHours($data->updated_at);
-
-                if ($diff < 25) {
-                    return $data->updated_at->diffForHumans();
-                }
-
-                return $data->updated_at->isoFormat('llll');
-            })
-            ->rawColumns(['name', 'image','action'])
+            ->editColumn('on_slider', '<strong>{{$on_slider ? "ya" : "tidak"}}</strong>')
+            ->rawColumns(['name', 'image','on_slider','action'])
             ->orderColumns(['id'], '-:column $1')
             ->make(true);
     }

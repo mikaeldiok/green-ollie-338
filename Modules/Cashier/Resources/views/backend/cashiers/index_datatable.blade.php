@@ -52,19 +52,13 @@
                                 #
                             </th>
                             <th>
-                                @lang("Gambar")
+                                @lang("cashier::text.name")
                             </th>
                             <th>
-                                @lang("Nama")
-                            </th>
-                            <th>
-                                @lang("Harga")
-                            </th>
-                            <th>
-                                @lang("Slider?")
+                                @lang("cashier::text.updated_at")
                             </th>
                             <th class="text-end">
-                                @lang("menu::text.action")
+                                @lang("cashier::text.action")
                             </th>
                         </tr>
                     </thead>
@@ -110,20 +104,12 @@
                 name: 'id'
             },
             {
-                data: 'image',
-                name: 'image'
-            },
-            {
                 data: 'name',
                 name: 'name'
             },
             {
-                data: 'price',
-                name: 'price'
-            },
-            {
-                data: 'on_slider',
-                name: 'on_slider'
+                data: 'updated_at',
+                name: 'updated_at'
             },
             {
                 data: 'action',
