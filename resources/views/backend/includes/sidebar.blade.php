@@ -24,15 +24,15 @@ $notifications_latest = optional($notifications)->take(5);
                 <i class="nav-icon fa-solid fa-cubes"></i>&nbsp;@lang('Dashboard')
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('backend.notifications.index') }}">
-                <i class="nav-icon fa-regular fa-bell"></i>&nbsp;@lang('Notifications')
-                @if ($notifications_count)
-                    &nbsp;<span class="badge badge-sm bg-info ms-auto">{{ $notifications_count }}</span>
-                @endif
-            </a>
-        </li>
-
+        @php
+            $module_name = "foods";
+            $text = __('Makanan');
+            $icon = "fa-solid fa-utensils";
+            $permission = "view_".$module_name;
+            $url = route('backend.'.$module_name.'.index');
+        @endphp
+        <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
+<!--
         @php
             $module_name = "posts";
             $text = __('Posts');
@@ -50,7 +50,7 @@ $notifications_latest = optional($notifications)->take(5);
             $url = route('backend.'.$module_name.'.index');
         @endphp
         <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
-        
+
         @php
             $module_name = "tags";
             $text = __('Tags');
@@ -58,8 +58,8 @@ $notifications_latest = optional($notifications)->take(5);
             $permission = "view_".$module_name;
             $url = route('backend.'.$module_name.'.index');
         @endphp
-        <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
-        
+        <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" /> -->
+
         @php
             $module_name = "settings";
             $text = __('Settings');
@@ -68,7 +68,7 @@ $notifications_latest = optional($notifications)->take(5);
             $url = route('backend.'.$module_name);
         @endphp
         <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
-        
+
         @php
             $module_name = "backups";
             $text = __('Backups');
@@ -77,7 +77,7 @@ $notifications_latest = optional($notifications)->take(5);
             $url = route('backend.'.$module_name.'.index');
         @endphp
         <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
-        
+
         @php
             $module_name = "users";
             $text = __('Users');
@@ -86,7 +86,7 @@ $notifications_latest = optional($notifications)->take(5);
             $url = route('backend.'.$module_name.'.index');
         @endphp
         <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
-        
+
         @php
             $module_name = "roles";
             $text = __('Roles');

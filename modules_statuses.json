@@ -1,5 +1,7 @@
 {
     "Post": true,
     "Category": true,
-    "Tag": true
+    "Tag": true,
+    "Menu": true,
+    "Po": true
 }
