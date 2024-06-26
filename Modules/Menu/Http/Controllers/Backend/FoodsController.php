@@ -5,9 +5,9 @@ namespace Modules\Menu\Http\Controllers\Backend;
 use App\Authorizable;
 use App\Http\Controllers\Backend\BackendBaseController;
 use Carbon\Carbon;
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
-use Yajra\DataTables\DataTables;
 
 class FoodsController extends BackendBaseController
 {
