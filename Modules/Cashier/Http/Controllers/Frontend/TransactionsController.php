@@ -125,7 +125,7 @@ class TransactionsController extends Controller
         $data['tax'] = $tax;
         $data['discount'] = $discount;
         $data['number'] = $request->input('number',0);
-        $data['name'] = $request->input('name',0);
+        $data['name'] = $request->input('atas_nama',0);
         $data['status'] = "Belum Lunas";
         $data['is_inplace'] = $request->input('in_place',0);
         $data['payment'] = $request->input('payment',0);
