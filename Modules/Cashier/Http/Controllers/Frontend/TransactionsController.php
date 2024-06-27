@@ -151,7 +151,7 @@ class TransactionsController extends Controller
                 TransactionDetail::create([
                     'transaction_id' =>$transaction->id,
                     'food_id' => $food['id'],
-                    'quanity' => $food['quantity'],
+                    'quantity' => $food['quantity'],
                     'total_price' => $food['price'],
                     // other fields...
                 ]);;

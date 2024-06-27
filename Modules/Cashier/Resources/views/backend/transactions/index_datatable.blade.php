@@ -58,7 +58,16 @@
                                Name
                             </th>
                             <th class="text-end">
+                               Total Order
+                            </th>
+                            <th class="text-end">
+                               Order
+                            </th>
+                            <th class="text-end">
                                Grand Total
+                            </th>
+                            <th class="text-end">
+                               Status
                             </th>
                         </tr>
                     </thead>
@@ -112,8 +121,20 @@
                 name: 'name'
             },
             {
+                data: 'total_order',
+                name: 'total_order'
+            },
+            {
+                data: 'order',
+                name: 'order'
+            },
+            {
                 data: 'grand_total',
                 name: 'grand_total'
+            },
+            {
+                data: 'status',
+                name: 'status'
             },
             {
                 data: 'action',

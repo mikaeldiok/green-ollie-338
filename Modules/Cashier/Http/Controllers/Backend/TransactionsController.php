@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Yajra\DataTables\DataTables; 
 use Illuminate\Http\JsonResponse; 
+use Illuminate\Support\Facades\DB;
 
 class TransactionsController extends BackendBaseController
 {
@@ -50,6 +51,14 @@ class TransactionsController extends BackendBaseController
         $$module_name = $module_model::select('id', 'invoice','name' ,'status','grand_total');
 
         $data = $$module_name;
+
+        $$module_name->addSelect(DB::raw("(SELECT SUM(quantity) FROM transaction_details WHERE transaction_id = $module_name.id) as total_order"));
+
+        // \Log::info()
+
+    // Add order column based on is_inplace
+        $$module_name->addSelect(DB::raw("CASE WHEN is_inplace = 1 THEN 'Ditempat' ELSE 'Take away' END as `order`"));
+
 
         return DataTables::of($$module_name)
             ->addColumn('action', function ($data) {

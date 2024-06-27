@@ -28,7 +28,7 @@
                         <div class="card-body">
                             <div class="h2 font-weight-bold">{{ $foodCount }}</div>
                             <div>Jumlah Makanan</div>
-                            <a href="#" class="btn btn-link text-white p-0 mt-2">Lihat Detail Produk</a>
+                            <a href="/admin/foods" class="btn btn-link text-white p-0 mt-2">Lihat Detail Produk</a>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                         <div class="card-body">
                             <div class="h2 font-weight-bold">{{ $transactionCount }}</div>
                             <div>PO (Purchase Order)</div>
-                            <a href="#" class="btn btn-link text-white p-0 mt-2">Lihat Detail PO</a>
+                            <a href="/admin/transactions" class="btn btn-link text-white p-0 mt-2">Lihat Detail PO</a>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                         <div class="card-body">
                             <div class="h2 font-weight-bold">{{ $CustomerCount }}</div>
                             <div>Customer</div>
-                            <a href="#" class="btn btn-link text-white p-0 mt-2">Lihat Detail Customer</a>
+                            <a href="/admin/transactions" class="btn btn-link text-white p-0 mt-2">Lihat Detail Customer</a>
                         </div>
                     </div>
                 </div>
@@ -87,6 +87,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="mt-2">
+                                <a href="/admin/foods" class="btn btn-primary">Menu Makanan</a>
+                            </div>
                         </div>
                     </div>
                 </div>

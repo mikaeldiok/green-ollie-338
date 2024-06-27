@@ -16,7 +16,7 @@ class BackendController extends Controller
      */
     public function index()
     {
-        $menu = Food::all();
+        $menu = Food::take(10)->get();;
         $user = User::all();
         $foodCount = Food::count();
         $userCount = User::count();
