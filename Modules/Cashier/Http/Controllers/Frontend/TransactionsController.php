@@ -3,6 +3,7 @@
 namespace Modules\Cashier\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Modules\Cashier\Models\TransactionDetail;
@@ -96,6 +97,7 @@ class TransactionsController extends Controller
 
     public function store(Request $request)
     {
+        \Log::debug($request->all());
         $module_title = $this->module_title;
         $module_name = $this->module_name;
         $module_path = $this->module_path;
@@ -105,11 +107,12 @@ class TransactionsController extends Controller
     
         $module_action = 'Store';
     
-        $foods = $request->input('arrayfood', []);
+        $foods = $request->input('food', []);
         
 
         // Calculate grand_total
-        $total = $request->input('total',0);
+
+        $total = $request->input('total_price',0);
         $tax = $request->input('tax', 0); // Default to 0 if not 
         $discount = $request->input('discount', 0); // Default to 0 if not set
         //$final_tax = $tax/100 * ($total - $discount);
@@ -118,11 +121,26 @@ class TransactionsController extends Controller
         // Add grand_total to the request data
         $data = $request->all();
         $data['grand_total'] = $total;
+        $data['total'] = $total;
+        $data['tax'] = $tax;
+        $data['discount'] = $discount;
+        $data['number'] = $request->input('number',0);
+        $data['name'] = $request->input('name',0);
+        $data['status'] = "Belum Lunas";
+        $data['is_inplace'] = $request->input('in_place',0);
+        $data['payment'] = $request->input('payment',0);
+        $lastTransaction = $module_model::orderBy('id', 'desc')->first();
+        $lastInvoiceNumber = $lastTransaction ? intval(substr($lastTransaction->invoice, 3)) : 0;
+        $newInvoiceNumber = str_pad($lastInvoiceNumber + 1, 4, '0', STR_PAD_LEFT);
+        $data['invoice'] = 'INV' . $newInvoiceNumber;
     
         $$module_name_singular = $module_model::create($data);
         $total_temp = 0;
 
 
+        \Log::debug($foods);
+        
+        \Log::debug(is_array($foods));
         if (is_array($foods)) {
             // Loop through each food item
             foreach ($foods as $food) {
@@ -130,30 +148,22 @@ class TransactionsController extends Controller
                 // For example, you could save each food item to the database
                 // Assuming you have a Food model
 
-                
-
-                $total_temp = $total_temp + $food['total_price'];
                 TransactionDetail::create([
-                    'transaction_id' =>$transactions->id,
-                    'food_id' => $food['food_id'],
+                    'transaction_id' =>$transaction->id,
+                    'food_id' => $food['id'],
                     'quanity' => $food['quantity'],
-                    'total_price' => $food['total_price'],
+                    'total_price' => $food['price'],
                     // other fields...
                 ]);;
             }
         }
 
         
-        $tax = $request->input('tax', 0); // Default to 0 if not 
-        $discount = $request->input('discount', 0); // Default to 0 if not set
-        $transactions->grand_total = $tax/100 *  ($total_temp- $discount);
-        $transactions->save();
-        
     
         flash("New '".Str::singular($module_title)."' Added")->success()->important();
     
         logUserAccess($module_title.' '.$module_action.' | Id: '.$$module_name_singular->id);
     
-        return redirect("admin/{$module_name}");
+        return response()->json(['message' => 'Transaction created successfully', 'Invoice' => $data['invoice']], 200);
     }
 }

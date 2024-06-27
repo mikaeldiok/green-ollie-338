@@ -4,12 +4,21 @@ namespace Modules\Cashier\Models;
 
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TransactionDetail extends BaseModel
+class TransactionDetail extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $fillable = [
+        'transaction_id',
+        'food_id',
+        'quantity',
+        'total_price',
+        // other fields...
+    ];
 
     protected $table = 'transaction_details';
 

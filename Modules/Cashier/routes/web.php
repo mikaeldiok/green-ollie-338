@@ -37,6 +37,7 @@ Route::group(['namespace' => '\Modules\Cashier\Http\Controllers\Frontend', 'as' 
     $controller_name = 'TransactionsController';
     Route::get("$module_name", ['as' => "$module_name.index", 'uses' => "$controller_name@index"]);
     Route::get("$module_name/{id}/{slug?}", ['as' => "$module_name.show", 'uses' => "$controller_name@show"]);
+    Route::post("$module_name/order", ['as' => "$module_name.store", 'uses' => "$controller_name@store"]);
 });
 
 /*
