@@ -1,116 +1,137 @@
-@extends('backend.layouts.app')
+@extends('frontend.layouts.app')
 
-@section('title') {{ __($module_action) }} {{ __($module_title) }} @endsection
-
-@section('breadcrumbs')
-<x-backend.breadcrumbs>
-    <x-backend.breadcrumb-item type="active" icon='{{ $module_icon }}'>{{ __($module_title) }}</x-backend.breadcrumb-item>
-</x-backend.breadcrumbs>
+@section('title')
+    {{ __($module_title) }}
 @endsection
 
 @section('content')
-<div class="card">
-    <div class="card-body">
+    <x-frontend.header-block :title="__($module_title)">
+        <p class="mb-8 leading-relaxed">
+            The list of Food {{ __($module_name) }}.
+        </p>
+    </x-frontend.header-block>
 
-        <x-backend.section-header>
-            <i class="{{ $module_icon }}"></i> {{ __($module_title) }} <small class="text-muted">{{ __($module_action) }}</small>
-
-            <x-slot name="subtitle">
-                @lang(":module_name Management Dashboard", ['module_name'=>Str::title($module_name)])
-            </x-slot>
-            <x-slot name="toolbar">
-                @can('add_'.$module_name)
-                <x-buttons.create route='{{ route("backend.$module_name.create") }}' title="{{__('Create')}} {{ ucwords(Str::singular($module_name)) }}" />
-                @endcan
-
-                @can('restore_'.$module_name)
-                <div class="btn-group">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-coreui-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-cog"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href='{{ route("backend.$module_name.trashed") }}'>
-                                <i class="fas fa-eye-slash"></i> @lang("View trash")
-                            </a>
-                        </li>
-                        <!-- <li>
-                            <hr class="dropdown-divider">
-                        </li> -->
-                    </ul>
-                </div>
-                @endcan
-            </x-slot>
-        </x-backend.section-header>
-
-        <div class="row mt-4">
-            <div class="col">
-                <table id="datatable" class="table table-bordered table-hover table-responsive-sm">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                @lang("cashier::text.name")
-                            </th>
-                            <th>
-                                @lang("cashier::text.slug")
-                            </th>
-                            <th>
-                                @lang("cashier::text.updated_at")
-                            </th>
-                            <th>
-                                @lang("cashier::text.created_by")
-                            </th>
-                            <th class="text-end">
-                                @lang("cashier::text.action")
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach($$module_name as $module_name_singular)
-                        <tr>
-                            <td>
-                                {{ $module_name_singular->id }}
-                            </td>
-                            <td>
-                                <a href="{{ url("admin/$module_name", $module_name_singular->id) }}">{{ $module_name_singular->name }}</a>
-                            </td>
-                            <td>
-                                {{ $module_name_singular->slug }}
-                            </td>
-                            <td>
-                                {{ $module_name_singular->updated_at->diffForHumans() }}
-                            </td>
-                            <td>
-                                {{ $module_name_singular->created_by }}
-                            </td>
-                            <td class="text-end">
-                                <a href='{!!route("backend.$module_name.edit", $module_name_singular)!!}' class='btn btn-sm btn-primary mt-1' data-toggle="tooltip" title="Edit {{ ucwords(Str::singular($module_name)) }}"><i class="fas fa-wrench"></i></a>
-                                <a href='{!!route("backend.$module_name.show", $module_name_singular)!!}' class='btn btn-sm btn-success mt-1' data-toggle="tooltip" title="Show {{ ucwords(Str::singular($module_name)) }}"><i class="fas fa-tv"></i></a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+    <section class="bg-white p-6 text-gray-600 dark:bg-gray-700 sm:p-20" x-data="cart()">
+        <h2 class="text-center text-2xl font-semibold mb-6">{{ __('Popular Dishes') }}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div class="sm:col-span-2 grid grid-cols-4 gap-6">
+                @foreach ($foods as $food)
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img class="w-full h-48 object-cover" src="{{ $food->image }}" alt="{{ $food->name }}">
+                        <div class="p-4 text-center">
+                            <h3 class="text-xl font-semibold mb-2">{{ $food->name }}</h3>
+                            <div class="text-lg font-semibold text-gray-900 mb-2" x-text="formatCurrency({{ $food->price }})"></div>
+                            <div x-data="{ quantity: 0, added: false }" class="flex items-center justify-center">
+                                <button 
+                                    x-show="!added"
+                                    @click="added = true; quantity = 1; addToCart({ id: {{ $food->id }}, name: '{{ $food->name }}', price: {{ $food->price }} })"
+                                    class="bg-blue-500 text-white px-4 py-2 rounded-lg border border-blue-500 hover:bg-blue-600">
+                                    Add To Cart
+                                </button>
+                                <div x-show="added" class="flex items-center space-x-2">
+                                    <button 
+                                        @click="quantity--; if(quantity <= 0) { added = false; quantity = 0; removeFromCart({ id: {{ $food->id }} }); } else { updateCart({ id: {{ $food->id }}, quantity: quantity }); }" 
+                                        class="bg-gray-300 text-gray-700 px-3 py-1 rounded-lg">
+                                        -
+                                    </button>
+                                    <span x-text="quantity" class="text-lg font-semibold"></span>
+                                    <button 
+                                        @click="quantity++; updateCart({ id: {{ $food->id }}, quantity: quantity })" 
+                                        class="bg-gray-300 text-gray-700 px-3 py-1 rounded-lg">
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        </div>
-    </div>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col-7">
-                <div class="float-left">
-                    Total {{ $$module_name->total() }} {{ ucwords($module_name) }}
+            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-between max-h-128">
+                <div class="overflow-y-auto">
+                    <h3 class="text-xl font-semibold mb-4">{{ __('Your Cart') }}</h3>
+                    <template x-for="item in cartItems" :key="item.id">
+                        <div class="flex justify-between mb-2">
+                            <span x-text="`${item.quantity}x ${item.name}`"></span>
+                            <span x-text="formatCurrency(item.price * item.quantity)"></span>
+                        </div>
+                    </template>
                 </div>
-            </div>
-            <div class="col-5">
-                <div class="float-end">
-                    {!! $$module_name->render() !!}
+                <div class="border-t pt-4 mt-4">
+                    <div class="flex justify-between mb-2">
+                        <span>{{ __('Total') }}</span>
+                        <span x-text="formatCurrency(totalPrice)"></span>
+                    </div>
+                    <button @click="openCheckoutModal" class="bg-green-500 text-white px-4 py-2 rounded-lg w-full">{{ __('Checkout') }}</button>
                 </div>
             </div>
         </div>
+        <div class="flex justify-center w-full mt-3">
+            {{ $foods->links() }}
+        </div>
+    </section>
+
+    <!-- Checkout Modal -->
+    <div x-data="{ isCheckoutModalOpen: true }" x-show="isCheckoutModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
+        <div class="bg-white p-6 rounded-lg max-w-lg w-full">
+            <h3 class="text-xl font-semibold mb-4">{{ __('Checkout') }}</h3>
+            <div class="mb-4">
+                <label for="atas_nama" class="block text-gray-700">{{ __('Atas Nama') }}</label>
+                <input id="atas_nama" type="text" x-model="checkoutDetails.atas_nama" class="w-full p-2 border border-gray-300 rounded">
+            </div>
+            <div class="mb-4">
+                <label for="customer" class="block text-gray-700">{{ __('Customer') }}</label>
+                <input id="customer" type="text" x-model="checkoutDetails.customer" class="w-full p-2 border border-gray-300 rounded">
+            </div>
+            <div class="mb-4">
+                <label for="order" class="block text-gray-700">{{ __('Order') }}</label>
+                <input id="order" type="text" x-model="checkoutDetails.order" class="w-full p-2 border border-gray-300 rounded">
+            </div>
+            <div class="flex justify-end space-x-4">
+                <button @click="isCheckoutModalOpen = false" class="bg-gray-500 text-white px-4 py-2 rounded">{{ __('Cancel') }}</button>
+                <button @click="printReceipt" class="bg-green-500 text-white px-4 py-2 rounded">{{ __('Print Receipt') }}</button>
+            </div>
+        </div>
     </div>
-</div>
+
+    <script>
+        function cart() {
+            return {
+                cartItems: [],
+                checkoutDetails: {
+                    atas_nama: '',
+                    customer: '',
+                    order: ''
+                },
+                get totalPrice() {
+                    return this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                },
+                addToCart(item) {
+                    const existingItem = this.cartItems.find(i => i.id === item.id);
+                    if (existingItem) {
+                        existingItem.quantity++;
+                    } else {
+                        this.cartItems.push({ ...item, quantity: 1 });
+                    }
+                },
+                updateCart(item) {
+                    const existingItem = this.cartItems.find(i => i.id === item.id);
+                    if (existingItem) {
+                        existingItem.quantity = item.quantity;
+                    }
+                },
+                removeFromCart(item) {
+                    this.cartItems = this.cartItems.filter(i => i.id !== item.id);
+                },
+                formatCurrency(amount) {
+                    return new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR'
+                    }).format(amount);
+                },
+                printReceipt() {
+                    console.log('Printing receipt with details:', this.checkoutDetails);
+                }
+            };
+        }
+    </script>
 @endsection
