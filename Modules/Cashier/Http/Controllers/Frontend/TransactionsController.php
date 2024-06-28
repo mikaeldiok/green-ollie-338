@@ -21,7 +21,7 @@ class TransactionsController extends Controller
 
     public $module_model;
 
-    
+
 
     public function __construct()
     {
@@ -104,20 +104,20 @@ class TransactionsController extends Controller
         $module_icon = $this->module_icon;
         $module_model = $this->module_model;
         $module_name_singular = Str::singular($module_name);
-    
+
         $module_action = 'Store';
-    
+
         $foods = $request->input('food', []);
-        
+
 
         // Calculate grand_total
 
         $total = $request->input('total_price',0);
-        $tax = $request->input('tax', 0); // Default to 0 if not 
+        $tax = $request->input('tax', 0); // Default to 0 if not
         $discount = $request->input('discount', 0); // Default to 0 if not set
         //$final_tax = $tax/100 * ($total - $discount);
         //$grand_total = $total - $final_tax - $discount;
-    
+
         // Add grand_total to the request data
         $data = $request->all();
         $data['grand_total'] = $total;
@@ -133,13 +133,13 @@ class TransactionsController extends Controller
         $lastInvoiceNumber = $lastTransaction ? intval(substr($lastTransaction->invoice, 3)) : 0;
         $newInvoiceNumber = str_pad($lastInvoiceNumber + 1, 4, '0', STR_PAD_LEFT);
         $data['invoice'] = 'INV' . $newInvoiceNumber;
-    
+
         $$module_name_singular = $module_model::create($data);
         $total_temp = 0;
 
 
         \Log::debug($foods);
-        
+
         \Log::debug(is_array($foods));
         if (is_array($foods)) {
             // Loop through each food item
@@ -152,18 +152,17 @@ class TransactionsController extends Controller
                     'transaction_id' =>$transaction->id,
                     'food_id' => $food['id'],
                     'quantity' => $food['quantity'],
-                    'total_price' => $food['price'],
-                    // other fields...
+                    'total_price' => $food['price']*$food['quantity'],
                 ]);;
             }
         }
 
-        
-    
+
+
         flash("New '".Str::singular($module_title)."' Added")->success()->important();
-    
+
         logUserAccess($module_title.' '.$module_action.' | Id: '.$$module_name_singular->id);
-    
+
         return response()->json(['message' => 'Transaction created successfully', 'Invoice' => $data['invoice']], 200);
     }
 }

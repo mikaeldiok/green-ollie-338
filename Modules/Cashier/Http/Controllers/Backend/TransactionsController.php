@@ -5,10 +5,10 @@ namespace Modules\Cashier\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Authorizable;
 use App\Http\Controllers\Backend\BackendBaseController;
-use Illuminate\Support\Str; 
+use Illuminate\Support\Str;
 use Carbon\Carbon;
-use Yajra\DataTables\DataTables; 
-use Illuminate\Http\JsonResponse; 
+use Yajra\DataTables\DataTables;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
 class TransactionsController extends BackendBaseController
@@ -83,27 +83,50 @@ class TransactionsController extends BackendBaseController
         $module_icon = $this->module_icon;
         $module_model = $this->module_model;
         $module_name_singular = Str::singular($module_name);
-    
+
         $module_action = 'Store';
-    
+
         // Calculate grand_total
         $total = $request->input('total');
-        $tax = $request->input('tax', 0); // Default to 0 if not 
+        $tax = $request->input('tax', 0); // Default to 0 if not
         $discount = $request->input('discount', 0); // Default to 0 if not set
         $final_tax = $tax/100 * ($total - $discount);
         $grand_total = $total - $final_tax - $discount;
-    
+
         // Add grand_total to the request data
         $data = $request->all();
         $data['grand_total'] = $grand_total;
-    
+
         $$module_name_singular = $module_model::create($data);
-    
+
         flash("New '".Str::singular($module_title)."' Added")->success()->important();
-    
+
         logUserAccess($module_title.' '.$module_action.' | Id: '.$$module_name_singular->id);
-    
+
         return redirect("admin/{$module_name}");
     }
 
+    public function payOrder(Request $request, $id)
+    {
+        $module_title = $this->module_title;
+        $module_name = $this->module_name;
+        $module_model = $this->module_model;
+        $module_name_singular = Str::singular($module_name);
+
+        $module_action = 'Update';
+
+        $record = $module_model::findOrFail($id);
+
+        $record->update($request->all());
+
+        $record->status = "Lunas";
+        $record->save();
+
+        logUserAccess($module_title.' '.$module_action.' | Id: '.$record->id);
+
+        return response()->json([
+            'message' => 'Record updated successfully.',
+            'record' => $record,
+        ]);
+    }
 }

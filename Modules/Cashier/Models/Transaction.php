@@ -22,4 +22,9 @@ class Transaction extends BaseModel
     {
         return \Modules\Transaction\database\factories\TransactionFactory::new();
     }
+
+    public function transaction_details()
+    {
+        return $this->hasMany(TransactionDetail::class);
+    }
 }
