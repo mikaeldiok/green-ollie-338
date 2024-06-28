@@ -49,18 +49,16 @@ class CashiersController extends Controller
         $module_icon = $this->module_icon;
         $module_model = $this->module_model;
         $module_name_singular = Str::singular($module_name);
-    
+
         $module_action = 'List';
-    
-        // Assuming your food model is named Food and located in Modules\Cashier\Models
-        $foods = \Modules\Menu\Models\Food::latest()->paginate();
-    
+
+        $$module_name = $module_model::latest()->paginate();
+
         return view(
             "$module_path.$module_name.index",
-            compact('module_title', 'module_name', 'foods', 'module_icon', 'module_action', 'module_name_singular')
+            compact('module_title', 'module_name', "$module_name", 'module_icon', 'module_action', 'module_name_singular')
         );
     }
-    
 
     /**
      * Display the specified resource.

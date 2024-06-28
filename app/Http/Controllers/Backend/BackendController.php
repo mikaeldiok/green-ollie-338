@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Modules\Menu\Models\Food;
+use App\Models\User;
+use Modules\Cashier\Models\Transaction;
 
 class BackendController extends Controller
 {
@@ -13,6 +16,17 @@ class BackendController extends Controller
      */
     public function index()
     {
-        return view('backend.index');
+        $menu = Food::take(10)->get();;
+        $user = User::all();
+        $foodCount = Food::count();
+        $userCount = User::count();
+        $transactionCount = Transaction::count();
+        $CustomerCount = Transaction::select('name')
+        ->distinct()
+        ->count('name');
+        //$slider_menu = Food::where('on_slider',true)->get();
+        return view('backend.index',
+                     compact('menu','user','userCount','transactionCount','foodCount','CustomerCount')
+                    );
     }
 }
