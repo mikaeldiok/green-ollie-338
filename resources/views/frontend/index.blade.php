@@ -89,7 +89,7 @@
                                 <p class="mt-2 text-gray-600 dark:text-gray-400">{{ $item->description }}</p>
                             </div>
                         </div>
-                        <p class="text-xl font-semibold text-gray-900 dark:text-white">{{ $item->price }}</p>
+                        <p class="text-xl font-semibold text-gray-900 dark:text-white">Rp{{number_format($item->price, 2, ",", ".")}}</p>
                     </div>
                 @endforeach
             </div>
