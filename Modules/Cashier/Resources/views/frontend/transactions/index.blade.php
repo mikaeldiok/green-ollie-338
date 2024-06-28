@@ -151,117 +151,119 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        function cart() {
-            return {
-                cartItems: [],
-                isCheckoutModalOpen: false,
-                checkoutDetails: {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function cart() {
+        return {
+            cartItems: [],
+            isCheckoutModalOpen: false,
+            checkoutDetails: {
+                atas_nama: '',
+                number: '',
+                in_place: ''
+            },
+            successInvoice: '',
+            get totalPrice() {
+                return this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            },
+            addToCart(item) {
+                const existingItem = this.cartItems.find(i => i.id === item.id);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    this.cartItems.push({ ...item, quantity: 1 });
+                }
+            },
+            updateCart(item) {
+                const existingItem = this.cartItems.find(i => i.id === item.id);
+                if (existingItem) {
+                    existingItem.quantity = item.quantity;
+                }
+            },
+            removeFromCart(item) {
+                this.cartItems = this.cartItems.filter(i => i.id !== item.id);
+            },
+            formatCurrency(amount) {
+                return new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR'
+                }).format(amount);
+            },
+            openCheckoutModal() {
+                console.log('Opening Checkout Modal');
+                this.isCheckoutModalOpen = true;
+                document.getElementById('authentication-modal').classList.remove('hidden');
+            },
+            closeCheckoutModal() {
+                console.log('Closing Checkout Modal');
+                this.isCheckoutModalOpen = false;
+                document.getElementById('authentication-modal').classList.add('hidden');
+            },
+            submitOrder() {
+                if (this.isSubmitting) return;  // Check if already submitting
+                this.isSubmitting = true;  // Flag to indicate submission in progress
+
+                this.checkoutDetails.atas_nama = document.getElementById('atas_nama').value;
+                this.checkoutDetails.number = document.getElementById('number').value;
+                this.checkoutDetails.in_place = document.querySelector('select[name="in_place"]').value;
+                console.log(this.checkoutDetails); // Debugging line to see the input values
+
+                const orderData = {
+                    atas_nama: this.checkoutDetails.atas_nama,
+                    number: this.checkoutDetails.number,
+                    in_place: this.checkoutDetails.in_place,
+                    total_price: this.totalPrice,
+                    food: this.cartItems.map(item => ({
+                        id: item.id,
+                        food_name: item.name,
+                        quantity: item.quantity,
+                        price: item.price
+                    }))
+                };
+
+                console.log(orderData); // Debugging line to see the order data
+                axios.post('/transactions/order', orderData)
+                    .then(response => {
+                        console.log('Order submitted successfully:', response.data);
+                        document.getElementById('invoice-number').textContent = response.data.Invoice;
+                        this.successInvoice = response.data.Invoice;
+                        this.showSuccessModal();
+                        // Handle successful order submission (e.g., show a success message)
+                    })
+                    .catch(error => {
+                        console.error('Error submitting order:', error);
+                        // Handle error (e.g., show an error message)
+                    })
+                    .finally(() => {
+                        this.isSubmitting = false;  // Reset the flag
+                    });
+            },
+            showSuccessModal() {
+                document.getElementById('authentication-modal').classList.add('hidden');
+                document.getElementById('success-modal').classList.remove('hidden');
+            },
+            clearCartAndForm() {
+                this.cartItems = [];
+                this.checkoutDetails = {
                     atas_nama: '',
                     number: '',
                     in_place: ''
-                },
-                successInvoice: '',
-                get totalPrice() {
-                    return this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-                },
-                addToCart(item) {
-                    const existingItem = this.cartItems.find(i => i.id === item.id);
-                    if (existingItem) {
-                        existingItem.quantity++;
-                    } else {
-                        this.cartItems.push({ ...item, quantity: 1 });
-                    }
-                },
-                updateCart(item) {
-                    const existingItem = this.cartItems.find(i => i.id === item.id);
-                    if (existingItem) {
-                        existingItem.quantity = item.quantity;
-                    }
-                },
-                removeFromCart(item) {
-                    this.cartItems = this.cartItems.filter(i => i.id !== item.id);
-                },
-                formatCurrency(amount) {
-                    return new Intl.NumberFormat('id-ID', {
-                        style: 'currency',
-                        currency: 'IDR'
-                    }).format(amount);
-                },
-                openCheckoutModal() {
-                    console.log('Opening Checkout Modal');
-                    this.isCheckoutModalOpen = true;
-                    document.getElementById('authentication-modal').classList.remove('hidden');
-                },
-                closeCheckoutModal() {
-                    console.log('Closing Checkout Modal');
-                    this.isCheckoutModalOpen = false;
-                    document.getElementById('authentication-modal').classList.add('hidden');
-                },
-                submitOrder() {
-                    this.checkoutDetails.atas_nama = document.getElementById('atas_nama').value;
-                    this.checkoutDetails.number = document.getElementById('number').value;
-                    this.checkoutDetails.in_place = document.querySelector('select[name="in_place"]').value;
-                    console.log(this.checkoutDetails); // Debugging line to see the input values
+                };
 
-                    const orderData = {
-                        atas_nama: this.checkoutDetails.atas_nama,
-                        number: this.checkoutDetails.number,
-                        in_place: this.checkoutDetails.in_place,
-                        total_price: this.totalPrice,
-                        food: this.cartItems.map(item => ({
-                            id: item.id,
-                            food_name: item.name,
-                            quantity: item.quantity,
-                            price: item.price
-                        }))
-                    };
+                location.reload();
+            },
+            init() {
+                document.getElementById('submit-order-button').addEventListener('click', this.submitOrder.bind(this));
 
-                    console.log(orderData); // Debugging line to see the order data
-                    axios.post('/transactions/order', orderData)
-                        .then(response => {
-                            console.log('Order submitted successfully:', response.data);
-                            document.getElementById('invoice-number').textContent = response.data.Invoice
-                            this.successInvoice = response.data.Invoice;
-                            this.showSuccessModal();
-                            // Handle successful order submission (e.g., show a success message)
-                        })
-                        .catch(error => {
-                            console.error('Error submitting order:', error);
-                            // Handle error (e.g., show an error message)
-                        });
-                },
-                showSuccessModal() {
-                    document.getElementById('authentication-modal').classList.add('hidden');
-                    document.getElementById('success-modal').classList.remove('hidden');
-                },
-                clearCartAndForm() {
-                    this.cartItems = [];
-                    this.checkoutDetails = {
-                        atas_nama: '',
-                        number: '',
-                        in_place: ''
-                    };
+                document.getElementById('success-modal-ok-button').addEventListener('click', this.clearCartAndForm.bind(this));
 
-                    location.reload();
-                },
-                init() {
-                    document.getElementById('submit-order-button').addEventListener('click', () => {
-                        this.submitOrder();
-                    });
+                // Add event listener for close button in success modal
+                document.querySelectorAll('[data-modal-hide="success-modal"]').forEach((btn) => {
+                    btn.addEventListener('click', this.clearCartAndForm.bind(this));
+                });
+            }
+        };
+    }
+</script>
 
-                    document.getElementById('success-modal-ok-button').addEventListener('click', () => {
-                        this.clearCartAndForm();
-                    });
-
-                    // Add event listener for close button in success modal
-                    document.querySelectorAll('[data-modal-hide="success-modal"]').forEach((btn) => {
-                        btn.addEventListener('click', () => {
-                            this.clearCartAndForm();
-                        });
-                    });
-                }
-            };
-        }
-    </script>
 @endsection
