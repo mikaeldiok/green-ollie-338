@@ -4,6 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.4.7/flowbite.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.4.7/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.2/alpine.js" integrity="sha512-VXGpJqJ0PL4nZqyrgVeV8T1W7Fn1bMfljSEJFP1pQoF3hxKbPt5SP0ad2B41tF3TFEG0Dcu5n2Fgm7A7a2mGfg==" crossorigin="anonymous"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -29,5 +36,7 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
     </body>
 </html>
