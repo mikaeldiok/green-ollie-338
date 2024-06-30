@@ -13,7 +13,11 @@
             <p class="mb-10 text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 sm:text-2xl xl:px-48">
                 Pusat menu nasi bakar paling original
             </p>
-
+            <a href="{{route('frontend.transactions.index')}}">
+                <button class="bg-green-500 hover:bg-green-600 text-white py-4 px-6 rounded shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    Pesan Disini
+                </button>
+            </a>
             @include('frontend.includes.messages')
         </div>
     </section>

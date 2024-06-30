@@ -19,23 +19,6 @@
                 </svg>
             </button>
 
-            <button
-                class="inline-flex cursor-pointer items-center justify-center rounded px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white"
-                data-dropdown-toggle="language-dropdown-menu" type="button">
-                <svg class="icon icon-tabler icons-tabler-outline icon-tabler-language"
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M4 5h7" />
-                    <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-                    <path d="M5 9c0 2.144 2.952 3.908 6.7 4" />
-                    <path d="M12 20l4 -9l4 9" />
-                    <path d="M19.1 18h-6.2" />
-                </svg>
-                <span class="ms-2 hidden sm:block">
-                    {{ strtoupper(app()->currentLocale()) }}
-                </span>
-            </button>
             <!-- Dropdown:language-dropdown-menu -->
             <div class="z-50 my-4 hidden list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:bg-gray-700"
                 id="language-dropdown-menu">
@@ -126,47 +109,6 @@
                             @endif
                             <li>
                                 <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    href="{{ route('frontend.users.profile') }}" role="menuitem">
-                                    <div class="inline-flex items-center">
-                                        <svg class="icon icon-tabler icons-tabler-outline icon-tabler-user-bolt me-2"
-                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4c.267 0 .529 .026 .781 .076" />
-                                            <path d="M19 16l-2 3h4l-2 3" />
-                                        </svg>
-                                        {{ Auth::user()->name }}
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    href="{{ route('frontend.users.profileEdit') }}" role="menuitem">
-                                    <div class="inline-flex items-center">
-                                        <svg class="icon icon-tabler icons-tabler-outline icon-tabler-settings-cog me-2"
-                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path
-                                                d="M12.003 21c-.732 .001 -1.465 -.438 -1.678 -1.317a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c.886 .215 1.325 .957 1.318 1.694" />
-                                            <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                                            <path d="M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                            <path d="M19.001 15.5v1.5" />
-                                            <path d="M19.001 21v1.5" />
-                                            <path d="M22.032 17.25l-1.299 .75" />
-                                            <path d="M17.27 20l-1.3 .75" />
-                                            <path d="M15.97 17.25l1.3 .75" />
-                                            <path d="M20.733 20l1.3 .75" />
-                                        </svg>
-                                        {{ __('Settings') }}
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                     href="{{ route('logout') }}" role="menuitem"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <div class="inline-flex items-center">
@@ -209,20 +151,8 @@
                     <x-frontend.nav-item :active="request()->routeIs('home')">
                         {{ __('Home') }}
                     </x-frontend.nav-item>
-                    <x-frontend.nav-item :href="route('frontend.posts.index')" :active="request()->routeIs('frontend.posts.*')">
-                        {{ __('Posts') }}
-                    </x-frontend.nav-item>
-                    <x-frontend.nav-item :href="route('frontend.categories.index')" :active="request()->routeIs('frontend.categories.*')">
-                        {{ __('Categories') }}
-                    </x-frontend.nav-item>
-                    <x-frontend.nav-item :href="route('frontend.tags.index')" :active="request()->routeIs('frontend.tags.*')">
-                        {{ __('Tags') }}
-                    </x-frontend.nav-item>
                     <x-frontend.nav-item :href="route('frontend.transactions.index')" :active="request()->routeIs('frontend.transactions.*')">
-                        {{ __('Transactions') }}
-                    </x-frontend.nav-item>
-                    <x-frontend.nav-item href="https://nasibakar.com" target="_blank">
-                        {{ __('Contact') }}
+                        {{ __('Order') }}
                     </x-frontend.nav-item>
                 </ul>
             </div>

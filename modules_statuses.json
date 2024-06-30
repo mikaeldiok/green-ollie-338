@@ -1,7 +1,7 @@
 {
-    "Post": true,
-    "Category": true,
-    "Tag": true,
+    "Post": false,
+    "Category": false,
+    "Tag": false,
     "Menu": true,
     "Cashier": true
 }

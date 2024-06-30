@@ -17,7 +17,7 @@ $notifications_latest = optional($notifications)->take(5);
             </li>
         </ul>
         <ul class="header-nav ms-auto">
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
                 <button class="btn btn-link nav-link d-flex align-items-center px-2 py-2" data-coreui-toggle="dropdown"
                     type="button" aria-expanded="false">
                     <i class="fa-regular fa-bell"></i>
@@ -48,7 +48,7 @@ $notifications_latest = optional($notifications)->take(5);
                         @endforeach
                     @endif
                 </ul>
-            </li>
+            </li> -->
         </ul>
         <ul class="header-nav">
             <li class="nav-item dropdown">
@@ -118,35 +118,6 @@ $notifications_latest = optional($notifications)->take(5);
         </ul>
         <ul class="header-nav">
             <li class="nav-item dropdown">
-                <button class="btn btn-link nav-link d-flex align-items-center px-2 py-2" data-coreui-toggle="dropdown"
-                    type="button" aria-expanded="false">
-                    <svg class="icon icon-lg icon-tabler icons-tabler-outline icon-tabler-language"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M4 5h7" />
-                        <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-                        <path d="M5 9c0 2.144 2.952 3.908 6.7 4" />
-                        <path d="M12 20l4 -9l4 9" />
-                        <path d="M19.1 18h-6.2" />
-                    </svg>
-                    &nbsp; {{ strtoupper(App::getLocale()) }}
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" style="--cui-dropdown-min-width: 8rem;">
-                    @foreach (config('app.available_locales') as $locale_code => $locale_name)
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center"
-                                href="{{ route('language.switch', $locale_code) }}">
-                                {{ $locale_name }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </li>
-        </ul>
-        <ul class="header-nav">
-            <li class="nav-item dropdown">
                 <a class="nav-link py-0 pe-0" data-coreui-toggle="dropdown" href="#" role="button"
                     aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-md">
@@ -155,24 +126,6 @@ $notifications_latest = optional($notifications)->take(5);
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
-                    <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">
-                        {{ __('Account') }}
-                    </div>
-                    <a class="dropdown-item" href="{{ route('backend.users.show', Auth::user()->id) }}">
-                        <i class="fa-regular fa-user me-2"></i>&nbsp;{{ Auth::user()->name }}
-                    </a>
-                    <a class="dropdown-item" href="{{ route('backend.users.show', Auth::user()->id) }}">
-                        <i class="fa-solid fa-at me-2"></i>&nbsp;{{ Auth::user()->email }}
-                    </a>
-                    <a class="dropdown-item" href="{{ route('backend.notifications.index', Auth::user()->id) }}">
-                        <i class="fa-regular fa-bell me-2"></i>&nbsp;@lang('Notifications')
-                        @if ($notifications_count)
-                            &nbsp;<span class="badge bg-danger ms-2">{{ $notifications_count }}</span>
-                        @endif
-                    </a>
-                    <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold my-2">
-                        <div class="fw-semibold">@lang('Settings')</div>
-                    </div>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fa-solid fa-right-from-bracket me-2"></i>&nbsp;@lang('Logout')
@@ -189,9 +142,9 @@ $notifications_latest = optional($notifications)->take(5);
                 @yield('breadcrumbs')
             </ol>
         </nav>
-        <div class="d-none d-sm-flex float-end flex-row">
+        <!-- <div class="d-none d-sm-flex float-end flex-row">
             <div class="">{{ date_today() }}&nbsp;</div>
             <div class="clock" id="liveClock" onload="showTime()"></div>
-        </div>
+        </div> -->
     </div>
 </header>

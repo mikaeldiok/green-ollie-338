@@ -13,18 +13,13 @@
         <x-backend.section-header>
             @lang("Admin Dashboard")
 
-            <x-slot name="toolbar">
-                <button class="btn btn-outline-primary mb-1" type="button" data-toggle="tooltip" data-coreui-placement="top" title="Tooltip">
-                    <i class="fa-solid fa-bullhorn"></i>
-                </button>
-            </x-slot>
         </x-backend.section-header>
 
         <!-- Dashboard Content Area -->
         <div class="container mt-4">
             <div class="row">
                 <div class="col-sm-6 col-lg-3">
-                    <div class="card text-white" style="background-color: #FD9B63; border-color: #FD9B63;">
+                    <div class="card text-white" style="background-color: #F98441; border-color: #F98441;">
                         <div class="card-body">
                             <div class="h2 font-weight-bold">{{ $foodCount }}</div>
                             <div>Jumlah Makanan</div>
@@ -33,29 +28,19 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3" >
-                    <div class="card text-white mb-3" style="background-color: #E7D37F; border-color: #E7D37F;">
+                    <div class="card text-white mb-3" style="background-color: #E2C64A; border-color: #E2C64A;">
                         <div class="card-body">
                             <div class="h2 font-weight-bold">{{ $transactionCount }}</div>
-                            <div>PO (Purchase Order)</div>
-                            <a href="/admin/transactions" class="btn btn-link text-white p-0 mt-2">Lihat Detail PO</a>
+                            <div>Transaksi</div>
+                            <a href="/admin/transactions" class="btn btn-link text-white p-0 mt-2">Daftar Transaksi</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
-                    <div class="card text-white" style="background-color: #81A263; border-color: #81A263;">
+                    <div class="card text-white" style="background-color: #8ED054; border-color: #8ED054;">
                         <div class="card-body">
                             <div class="h2 font-weight-bold">{{ $CustomerCount }}</div>
                             <div>Customer</div>
-                            <a href="/admin/transactions" class="btn btn-link text-white p-0 mt-2">Lihat Detail Customer</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card text-white mb-3" style="background-color: #365E32; border-color: #365E32;">
-                        <div class="card-body">
-                            <div class="h2 font-weight-bold">{{ $userCount }}</div>
-                            <div>Admin</div>
-                            <a href="#" class="btn btn-link text-white p-0 mt-2">Lihat Detail Admin</a>
                         </div>
                     </div>
                 </div>
@@ -95,7 +80,7 @@
                 </div>
 
                 <!-- Data Admin Table -->
-                <div class="col-lg-4 mb-4">
+                <!-- <div class="col-lg-4 mb-4">
                     <div class="card">
                         <div class="card-header font-weight-bold">Data Admin</div>
                         <div class="card-body">
@@ -122,7 +107,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- / Dashboard Content Area -->

@@ -36,54 +36,18 @@ $notifications_latest = optional($notifications)->take(5);
         @php
             $module_name = "transactions";
             $text = __('Transaksi');
-            $icon = "fa-solid fa-utensils";
+            $icon = "fa-solid fa-file-alt";
             $permission = "view_".$module_name;
             $url = route('backend.'.$module_name.'.index');
         @endphp
         <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
 
-        @php
-            $module_name = "posts";
-            $text = __('Posts');
-            $icon = "fa-regular fa-file-lines";
-            $permission = "view_".$module_name;
-            $url = route('backend.'.$module_name.'.index');
-        @endphp
-        <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
-
-        @php
-            $module_name = "categories";
-            $text = __('Categories');
-            $icon = "fa-solid fa-diagram-project";
-            $permission = "view_".$module_name;
-            $url = route('backend.'.$module_name.'.index');
-        @endphp
-        <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
-
-        @php
-            $module_name = "tags";
-            $text = __('Tags');
-            $icon = "fa-solid fa-tags";
-            $permission = "view_".$module_name;
-            $url = route('backend.'.$module_name.'.index');
-        @endphp
-        <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" /> -->
-
-        @php
+        <!-- @php
             $module_name = "settings";
             $text = __('Settings');
             $icon = "fa-solid fa-gears";
             $permission = "edit_".$module_name;
             $url = route('backend.'.$module_name);
-        @endphp
-        <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
-
-        @php
-            $module_name = "backups";
-            $text = __('Backups');
-            $icon = "fa-solid fa-box-archive";
-            $permission = "view_".$module_name;
-            $url = route('backend.'.$module_name.'.index');
         @endphp
         <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
 
@@ -103,9 +67,9 @@ $notifications_latest = optional($notifications)->take(5);
             $permission = "view_".$module_name;
             $url = route('backend.'.$module_name.'.index');
         @endphp
-        <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" />
+        <x-backend.sidebar-nav-item :permission="$permission" :url="$url" :icon="$icon" :text="$text" /> -->
 
-        @can('view_logs')
+        <!-- @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
                     <i class="nav-icon fa-solid fa-list-ul"></i>&nbsp;@lang('Logs')
@@ -123,7 +87,7 @@ $notifications_latest = optional($notifications)->take(5);
                     </li>
                 </ul>
             </li>
-        @endcan
+        @endcan -->
 
     </ul>
     <div class="sidebar-footer border-top d-none d-md-flex">
