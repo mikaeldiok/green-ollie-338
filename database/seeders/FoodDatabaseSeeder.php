@@ -154,11 +154,46 @@ class FoodDatabaseSeeder extends Seeder
                 'on_slider' => true,
                 'image' => env('APP_URL') . '/img/foods/nasi bakar sambal matah.jpg',
             ],
+            [
+                'name' => 'Nasi Bakar Belut',
+                'description' => 'Nasi bakar dengan isian belut yang gurih dan lezat.',
+                'price' => 30000,
+                'on_slider' => false,
+                'image' => env('APP_URL') . '/img/foods/nasi bakar belut.jpg',
+            ],
+            [
+                'name' => 'Nasi Bakar Tempe',
+                'description' => 'Nasi bakar dengan isian tempe yang sehat dan nikmat.',
+                'price' => 20000,
+                'on_slider' => false,
+                'image' => env('APP_URL') . '/img/foods/nasi bakar tempe.jpg',
+            ],
+            [
+                'name' => 'Nasi Bakar Tongkol Kemangi',
+                'description' => 'Nasi bakar dengan isian tongkol dan aroma kemangi yang menggugah selera.',
+                'price' => 27000,
+                'on_slider' => false,
+                'image' => env('APP_URL') . '/img/foods/nasi bakar tongkol kemangi.jpg',
+            ],
+            [
+                'name' => 'Nasi Bakar Ayam Panggang',
+                'description' => 'Nasi bakar dengan isian ayam panggang yang lezat dan juicy.',
+                'price' => 28000,
+                'on_slider' => false,
+                'image' => env('APP_URL') . '/img/foods/nasi bakar ayam panggang.jpg',
+            ],
+            [
+                'name' => 'Nasi Bakar Gurih Udang',
+                'description' => 'Nasi bakar dengan isian udang yang gurih dan kaya rasa.',
+                'price' => 32000,
+                'on_slider' => false,
+                'image' => env('APP_URL') . '/img/foods/nasi bakar gurih udang.jpg',
+            ],
         ];
 
         // Insert the data into the foods table
         foreach ($nasiBakarList as $nasiBakar) {
-            Food::create($nasiBakar);
+            Food::firstOrCreate(['name' => $nasiBakar['name']],$nasiBakar);
         }
     }
 }
