@@ -26,7 +26,7 @@ class FoodDatabaseSeeder extends Seeder
                 'description' => 'Nasi bakar dengan isian ikan teri yang pedas dan menggugah selera.',
                 'price' => 20000,
                 'on_slider' => true,
-                'image' => env('APP_URL') . '/img/foods/nasi%20bakar%20teri.jpg',
+                'image' => env('APP_URL') . '/img/foods/nasi bakar teri.jpg',
             ],
             [
                 'name' => 'Nasi Bakar Ayam Suwir Pedas',
@@ -89,7 +89,7 @@ class FoodDatabaseSeeder extends Seeder
                 'description' => 'Nasi bakar dengan isian telur asin yang kaya rasa.',
                 'price' => 25000,
                 'on_slider' => false,
-                'image' => env('APP_URL') . '/img/foods/nasi bakar telur asing.jpeg',
+                'image' => env('APP_URL') . '/img/foods/nasi bakar telur asin.jpeg',
             ],
             [
                 'name' => 'Nasi Bakar Daging Rendang',

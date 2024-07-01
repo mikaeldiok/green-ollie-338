@@ -64,7 +64,7 @@ class TransactionsController extends BackendBaseController
             ->addColumn('action', function ($data) {
                 $module_name = $this->module_name;
 
-                return view('backend.includes.action_column', compact('module_name', 'data'));
+                return view('backend.includes.action_column_transaction', compact('module_name', 'data'));
             })
             ->editColumn('invoice', '<strong>{{$invoice}}</strong>')
             ->editColumn('name', '<strong>{{$name}}</strong>')
