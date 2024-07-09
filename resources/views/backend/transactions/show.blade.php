@@ -48,42 +48,72 @@
                     </table>
 
                     <div class="mt-4">
-                        <label for="tax">Tax (%)</label>
-                        <input type="number" id="tax" name="tax" class="form-control mb-2" placeholder="Enter tax amount">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tax">Tax (%)</label>
+                                    <input type="number" id="tax" name="tax" class="form-control mb-2" placeholder="Enter tax amount">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="discount">Discount (Rp.)</label>
+                                    <input type="number" id="discount" name="discount" class="form-control mb-2" placeholder="Enter discount percentage">
+                                </div>
+                            </div>
+                        </div>
 
-                        <label for="discount">Discount (Rp.)</label>
-                        <input type="number" id="discount" name="discount" class="form-control mb-2" placeholder="Enter discount percentage">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="grand-total">Grand Total</label>
+                                    <input type="text" id="grand-total" class="form-control mb-2" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="payment">Payment</label>
+                                    <input type="number" id="payment" name="payment" class="form-control mb-2" placeholder="Enter payment amount">
+                                </div>
+                            </div>
+                        </div>
 
-                        <h6 class="mt-3">Grand Total</h6>
-                        <input type="text" id="grand-total" class="form-control mb-2" readonly>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Empty column to match the layout -->
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="change">Change</label>
+                                    <input type="text" id="change" class="form-control mb-4" readonly>
+                                </div>
+                            </div>
+                        </div>
 
-                        <label for="payment">Payment</label>
-                        <input type="number" id="payment" name="payment" class="form-control mb-2" placeholder="Enter payment amount">
-
-                        <label for="change">Change</label>
-                        <input type="text" id="change" class="form-control mb-4" readonly>
-
-                        <button id="save-transaction" class="btn btn-primary">Save Transaction</button>
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-center">
+                                <button id="save-transaction" class="btn btn-lg w-50 btn-success text-white">Bayar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            
 
             <!-- Modal for Summary -->
-            <div class="modal fade" id="summaryModal" tabindex="-1" role="dialog" aria-labelledby="summaryModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+            <div class="modal fade" id="summaryModal" tabindex="-1" aria-labelledby="summaryModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="summaryModalLabel">Transaction Summary</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <button type="button" id="closed-transaction" class="btn-close" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <!-- Summary details will be filled here via jQuery -->
                             <div id="transaction-summary-content" class="receipt"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="closed2-transaction" class="btn btn-secondary" >Close</button>
                             <button type="button" id="print-summary" class="btn btn-primary">Print Summary</button>
                         </div>
                     </div>
@@ -91,7 +121,6 @@
             </div>
         </div>
     </div>
-
 </x-backend.layouts.show>
 @endsection
 
@@ -189,6 +218,12 @@
         // Save Transaction Button Click
         $('#save-transaction').click(function() {
             saveTransaction();
+        });
+        $('#closed-transaction').click(function() {
+            $('#summaryModal').modal('hide');
+        });
+        $('#closed2-transaction').click(function() {
+            $('#summaryModal').modal('hide');
         });
 
         // Print Summary Button Click
