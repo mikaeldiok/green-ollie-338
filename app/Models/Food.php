@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Menu\Models;
+namespace App\Models;
 
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Cashier\Models\TransactionDetail;
+use App\Models\TransactionDetail;
 
 class Food extends BaseModel
 {

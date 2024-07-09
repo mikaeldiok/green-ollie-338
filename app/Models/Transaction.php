@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Cashier\Models;
+namespace App\Models;
 
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use Modules\Menu\Models\Food;
+use App\Models\Food;
 use App\Models\User;
-use Modules\Cashier\Models\Transaction;
+use App\Models\Transaction;
 
 class BackendController extends Controller
 {

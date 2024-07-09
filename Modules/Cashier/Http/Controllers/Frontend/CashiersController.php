@@ -27,7 +27,7 @@ class CashiersController extends Controller
         $this->module_name = 'cashiers';
 
         // directory path of the module
-        $this->module_path = 'cashier::frontend';
+        $this->module_path = 'frontend';
 
         // module icon
         $this->module_icon = 'fa-regular fa-sun';
@@ -53,7 +53,7 @@ class CashiersController extends Controller
         $module_action = 'List';
     
         // Assuming your food model is named Food and located in Modules\Cashier\Models
-        $foods = \Modules\Menu\Models\Food::latest()->paginate();
+        $foods = App\Models\Food::latest()->paginate();
     
         return view(
             "$module_path.$module_name.index",

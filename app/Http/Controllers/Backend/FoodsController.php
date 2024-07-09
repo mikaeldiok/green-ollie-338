@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Menu\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend;
 
 use App\Authorizable;
 use App\Http\Controllers\Backend\BackendBaseController;
@@ -22,13 +22,13 @@ class FoodsController extends BackendBaseController
         $this->module_name = 'foods';
 
         // directory path of the module
-        $this->module_path = 'menu::backend';
+        $this->module_path = 'backend';
 
         // module icon
         $this->module_icon = 'fa-regular fa-pizza';
 
         // module model name, path
-        $this->module_model = "Modules\Menu\Models\Food";
+        $this->module_model = "App\Models\Food";
     }
 
     public function index_data() : JsonResponse

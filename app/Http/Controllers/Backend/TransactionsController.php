@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Cashier\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Authorizable;
@@ -24,13 +24,13 @@ class TransactionsController extends BackendBaseController
         $this->module_name = 'transactions';
 
         // directory path of the module
-        $this->module_path = 'cashier::backend';
+        $this->module_path = 'backend';
 
         // module icon
         $this->module_icon = 'fa-regular fa-sun';
 
         // module model name, path
-        $this->module_model = "Modules\Cashier\Models\Transaction";
+        $this->module_model = "App\Models\Transaction";
     }
 
 

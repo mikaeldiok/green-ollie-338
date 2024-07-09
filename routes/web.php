@@ -38,6 +38,19 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
     Route::get('/', 'FrontendController@index')->name('index');
 
     Route::group(['middleware' => ['auth']], function () {
+     
+        $module_name = 'cashiers';
+        $controller_name = 'CashiersController';
+        Route::get("$module_name", ['as' => "$module_name.index", 'uses' => "$controller_name@index"]);
+        Route::get("$module_name/{id}/{slug?}", ['as' => "$module_name.show", 'uses' => "$controller_name@show"]);
+    
+    
+        $module_name = 'transactions';
+        $controller_name = 'TransactionsController';
+        Route::get("$module_name", ['as' => "$module_name.index", 'uses' => "$controller_name@index"]);
+        Route::get("$module_name/{id}/{slug?}", ['as' => "$module_name.show", 'uses' => "$controller_name@show"]);
+        Route::post("$module_name/order", ['as' => "$module_name.store", 'uses' => "$controller_name@store"]);
+        
         /*
         *
         *  Users Routes
@@ -63,6 +76,30 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
 * --------------------------------------------------------------------
 */
 Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin', 'as' => 'backend.', 'middleware' => ['auth', 'can:view_backend']], function () {
+    $module_name = 'cashiers';
+    $controller_name = 'CashiersController';
+    Route::get("$module_name/index_list", ['as' => "$module_name.index_list", 'uses' => "$controller_name@index_list"]);
+    Route::get("$module_name/index_data", ['as' => "$module_name.index_data", 'uses' => "$controller_name@index_data"]);
+    Route::get("$module_name/trashed", ['as' => "$module_name.trashed", 'uses' => "$controller_name@trashed"]);
+    Route::patch("$module_name/trashed/{id}", ['as' => "$module_name.restore", 'uses' => "$controller_name@restore"]);
+    Route::resource("$module_name", "$controller_name");
+
+    $module_name = 'transactions';
+    $controller_name = 'TransactionsController';
+    Route::get("$module_name/index_list", ['as' => "$module_name.index_list", 'uses' => "$controller_name@index_list"]);
+    Route::get("$module_name/index_data", ['as' => "$module_name.index_data", 'uses' => "$controller_name@index_data"]);
+    Route::get("$module_name/trashed", ['as' => "$module_name.trashed", 'uses' => "$controller_name@trashed"]);
+    Route::patch("$module_name/trashed/{id}", ['as' => "$module_name.restore", 'uses' => "$controller_name@restore"]);
+    Route::put("$module_name/payOrder/{transaction}", ['as' => "$module_name.payOrder", 'uses' => "$controller_name@payOrder"]);
+
+
+    $module_name = 'foods';
+    $controller_name = 'FoodsController';
+    Route::get("$module_name/index_list", ['as' => "$module_name.index_list", 'uses' => "$controller_name@index_list"]);
+    Route::get("$module_name/index_data", ['as' => "$module_name.index_data", 'uses' => "$controller_name@index_data"]);
+    Route::get("$module_name/trashed", ['as' => "$module_name.trashed", 'uses' => "$controller_name@trashed"]);
+    Route::patch("$module_name/trashed/{id}", ['as' => "$module_name.restore", 'uses' => "$controller_name@restore"]);
+    Route::resource("$module_name", "$controller_name");
     /**
      * Backend Dashboard
      * Namespaces indicate folder structure.

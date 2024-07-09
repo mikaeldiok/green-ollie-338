@@ -1,13 +1,12 @@
 <?php
-
-namespace Modules\Cashier\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use Modules\Cashier\Models\TransactionDetail;
-use Modules\Menu\Models\Food;
+use App\Models\TransactionDetail;
+use App\Models\Food;
 
 class TransactionsController extends Controller
 {
@@ -32,13 +31,13 @@ class TransactionsController extends Controller
         $this->module_name = 'transactions';
 
         // directory path of the module
-        $this->module_path = 'cashier::frontend';
+        $this->module_path = 'frontend';
 
         // module icon
         $this->module_icon = 'fa-regular fa-sun';
 
         // module model name, path
-        $this->module_model = "Modules\Cashier\Models\Transaction";
+        $this->module_model = "App\Models\Transaction";
     }
 
     /**
@@ -58,7 +57,7 @@ class TransactionsController extends Controller
     $module_action = 'List';
 
     // Assuming your food model is named Food and located in Modules\Cashier\Models
-    $foods = \Modules\Menu\Models\Food::latest()->paginate(12);
+    $foods = Food::latest()->paginate(12);
 
     return view(
         "$module_path.$module_name.index",

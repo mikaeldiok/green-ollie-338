@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use Modules\Menu\Models\Food;
+use App\Models\Food;
 
 class FrontendController extends Controller
 {

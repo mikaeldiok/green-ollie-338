@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Cashier\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -27,13 +27,13 @@ class CashiersController extends Controller
         $this->module_name = 'cashiers';
 
         // directory path of the module
-        $this->module_path = 'cashier::frontend';
+        $this->module_path = 'frontend';
 
         // module icon
         $this->module_icon = 'fa-regular fa-sun';
 
         // module model name, path
-        $this->module_model = "Modules\Cashier\Models\Cashier";
+        $this->module_model = "App\Models\Cashier";
     }
 
     /**
