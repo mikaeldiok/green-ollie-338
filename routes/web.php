@@ -44,15 +44,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
     Route::post("$module_name/order", ['as' => "$module_name.store", 'uses' => "$controller_name@store"]);
 
     Route::group(['middleware' => ['auth']], function () {
-     
-        $module_name = 'cashiers';
-        $controller_name = 'CashiersController';
-        Route::get("$module_name", ['as' => "$module_name.index", 'uses' => "$controller_name@index"]);
-        Route::get("$module_name/{id}/{slug?}", ['as' => "$module_name.show", 'uses' => "$controller_name@show"]);
-    
-    
-      
-        
         /*
         *
         *  Users Routes
