@@ -64,7 +64,7 @@
                                 @lang("Slider?")
                             </th>
                             <th class="text-end">
-                                @lang("menu::text.action")
+                                @lang("Aksi")
                             </th>
                         </tr>
                     </thead>

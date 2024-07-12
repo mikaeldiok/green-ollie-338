@@ -27,7 +27,6 @@
                         <strong>Jenis:</strong> {{ $transaction->is_inplace ? "dine-in" : "takeaway" }}<br>
                     </p>
 
-                    <h6 class="mt-4">Rewards</h6>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -44,52 +43,30 @@
                                 <td>{{ $detail->total_price }}</td>
                             </tr>
                             @endforeach
+                            <tr>
+                                <td colspan="2" class="text-right"><strong>Tax (%)</strong></td>
+                                <td><input type="number" id="tax" name="tax" class="form-control" placeholder="Enter tax percentage"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-right"><strong>Discount (Rp.)</strong></td>
+                                <td><input type="number" id="discount" name="discount" class="form-control" placeholder="Enter discount amount"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-right"><strong>Grand Total</strong></td>
+                                <td><input type="text" id="grand-total" class="form-control" readonly></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-right"><strong>Payment</strong></td>
+                                <td><input type="number" id="payment" name="payment" class="form-control" placeholder="Enter payment amount"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-right"><strong>Change</strong></td>
+                                <td><input type="text" id="change" class="form-control" readonly></td>
+                            </tr>
                         </tbody>
                     </table>
 
                     <div class="mt-4">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="tax">Tax (%)</label>
-                                    <input type="number" id="tax" name="tax" class="form-control mb-2" placeholder="Enter tax amount">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="discount">Discount (Rp.)</label>
-                                    <input type="number" id="discount" name="discount" class="form-control mb-2" placeholder="Enter discount percentage">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="grand-total">Grand Total</label>
-                                    <input type="text" id="grand-total" class="form-control mb-2" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="payment">Payment</label>
-                                    <input type="number" id="payment" name="payment" class="form-control mb-2" placeholder="Enter payment amount">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <!-- Empty column to match the layout -->
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="change">Change</label>
-                                    <input type="text" id="change" class="form-control mb-4" readonly>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row">
                             <div class="col-12 d-flex justify-content-center">
                                 <button id="save-transaction" class="btn btn-lg w-50 btn-success text-white">Bayar</button>
@@ -98,7 +75,6 @@
                     </div>
                 </div>
             </div>
-            
 
             <!-- Modal for Summary -->
             <div class="modal fade" id="summaryModal" tabindex="-1" aria-labelledby="summaryModalLabel" aria-hidden="true">
@@ -113,7 +89,7 @@
                             <div id="transaction-summary-content" class="receipt"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="closed2-transaction" class="btn btn-secondary" >Close</button>
+                            <button type="button" id="closed2-transaction" class="btn btn-secondary">Close</button>
                             <button type="button" id="print-summary" class="btn btn-primary">Print Summary</button>
                         </div>
                     </div>
@@ -203,7 +179,8 @@
         var typingTimer;
         var doneTypingInterval = 500;
 
-        calculateGrandTotal();
+        calculateGrandTotal(); // Calculate Grand Total on page load
+
         // Calculate Grand Total
         $('#discount, #tax').on('input', function() {
             calculateGrandTotal();
@@ -240,7 +217,7 @@
             var tax = parseFloat($('#tax').val()) || 0;
             var total = calculateTotal(); // Function to calculate total before discount and tax
 
-            var subtotal = total + (total * (tax / 100))
+            var subtotal = total + (total * (tax / 100));
             var grandTotal = subtotal - discount;
             $('#grand-total').val(grandTotal.toFixed(2));
         }
@@ -291,14 +268,12 @@
             });
         }
 
-        // Placeholder function to calculate total before discount and tax
+        // Function to calculate total before discount and tax
         function calculateTotal() {
-            // Implement your logic to calculate total based on transaction details
-            // Example: var total = parseFloat($('#total').val()) || 0;
-            // Replace this with your actual calculation
             var total = 0;
             $('.table tbody tr').each(function() {
-                total += parseFloat($(this).find('td:nth-child(3)').text());
+                var price = parseFloat($(this).find('td:nth-child(3)').text()) || 0;
+                total += price;
             });
             return total;
         }
@@ -310,7 +285,7 @@
             var number = '{{ $transaction->number }}';
             var status = '{{ $transaction->status }}';
             var is_inplace = '{{ $transaction->is_inplace ? "dine-in" : "takeaway" }}';
-            var total = '{{ $transaction->total }}';
+            var total = calculateTotal();
             var summaryContent = `
                 <div class="receipt-header">
                     <h4>Kedai Nasi Bakar Selera</h4>
@@ -347,7 +322,7 @@
             summaryContent += `
                     </tbody>
                 </table>
-                <p><strong>Total Bayar:</strong> Rp${total}</p>
+                <p><strong>Total Bayar:</strong> Rp${total.toFixed(2)}</p>
                 <p><strong>Pajak:</strong> Rp${$('#tax').val()}</p>
                 <p><strong>Diskon:</strong> Rp${$('#discount').val()}</p>
                 <p><strong>Grand Total:</strong> Rp${$('#grand-total').val()}</p>
