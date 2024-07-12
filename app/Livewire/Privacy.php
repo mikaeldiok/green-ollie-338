@@ -10,7 +10,7 @@ class Privacy extends Component
 {
     public function render()
     {
-        $title = 'Privacy Policy';
+        $title ='Privacy Policy';
         $company_name = app_name();
         $app_email = setting('email');
 
