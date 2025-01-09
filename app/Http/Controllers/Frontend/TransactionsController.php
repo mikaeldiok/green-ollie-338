@@ -96,28 +96,22 @@ class TransactionsController extends Controller
 
     public function store(Request $request)
     {
-        \Log::debug($request->all());
         $module_title = $this->module_title;
         $module_name = $this->module_name;
         $module_path = $this->module_path;
         $module_icon = $this->module_icon;
         $module_model = $this->module_model;
         $module_name_singular = Str::singular($module_name);
-
         $module_action = 'Store';
 
         $foods = $request->input('food', []);
 
-
-        // Calculate grand_total
-
         $total = $request->input('total_price',0);
-        $tax = $request->input('tax', 0); // Default to 0 if not
-        $discount = $request->input('discount', 0); // Default to 0 if not set
-        //$final_tax = $tax/100 * ($total - $discount);
-        //$grand_total = $total - $final_tax - $discount;
+        $tax = $request->input('tax', 0);
+        $discount = $request->input('discount', 0);
+        $final_tax = $tax/100 * ($total - $discount);
+        $grand_total = $total - $final_tax - $discount;
 
-        // Add grand_total to the request data
         $data = $request->all();
         $data['grand_total'] = $total;
         $data['total'] = $total;
@@ -134,18 +128,8 @@ class TransactionsController extends Controller
         $data['invoice'] = 'INV' . $newInvoiceNumber;
 
         $$module_name_singular = $module_model::create($data);
-        $total_temp = 0;
-
-
-        \Log::debug($foods);
-
-        \Log::debug(is_array($foods));
         if (is_array($foods)) {
-            // Loop through each food item
             foreach ($foods as $food) {
-                // Perform your operations on each $food item
-                // For example, you could save each food item to the database
-                // Assuming you have a Food model
 
                 TransactionDetail::create([
                     'transaction_id' =>$transaction->id,
@@ -155,8 +139,6 @@ class TransactionsController extends Controller
                 ]);;
             }
         }
-
-
 
         flash("New '".Str::singular($module_title)."' Added")->success()->important();
 

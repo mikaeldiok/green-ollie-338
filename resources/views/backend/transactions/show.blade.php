@@ -45,12 +45,12 @@
                             @endforeach
                             <tr>
                                 <td colspan="2" class="text-right"><strong>Tax (%)</strong></td>
-                                <td><input type="number" id="tax" name="tax" class="form-control" placeholder="Enter tax percentage"></td>
+                                <td><input value="10" type="number" id="tax" name="tax" class="form-control" placeholder="Enter tax percentage"></td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td colspan="2" class="text-right"><strong>Discount (Rp.)</strong></td>
                                 <td><input type="number" id="discount" name="discount" class="form-control" placeholder="Enter discount amount"></td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td colspan="2" class="text-right"><strong>Grand Total</strong></td>
                                 <td><input type="text" id="grand-total" class="form-control" readonly></td>

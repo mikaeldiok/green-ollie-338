@@ -72,51 +72,57 @@
     </section>
 
     <!-- Checkout Modal -->
-    <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative w-full max-w-2xl max-h-full">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        {{ __('Checkout') }}
-                    </h3>
-                    <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
+    <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div class="relative w-full max-w-lg mx-auto bg-white rounded-lg shadow-lg dark:bg-gray-800">
+            <div class="flex items-start justify-between p-5 border-b border-gray-300 rounded-t dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                    {{ __('Checkout') }}
+                </h3>
+                <button type="button" class="text-gray-400 hover:text-gray-800 dark:hover:text-gray-200" data-modal-hide="authentication-modal">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-6">
+                <div class="mb-4">
+                    <label for="atas_nama" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {{ __('Atas Nama') }}
+                    </label>
+                    <input id="atas_nama" type="text" x-model="checkoutDetails.atas_nama"
+                           class="block w-full p-3 text-sm border rounded-md border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
                 </div>
-                <div class="p-6 space-y-6">
-                    <div class="mb-4">
-                        <label for="atas_nama" class="block text-gray-700">{{ __('Atas Nama') }}</label>
-                        <input id="atas_nama" type="text" x-model="checkoutDetails.atas_nama" class="w-full p-2 border border-gray-300 rounded">
-                    </div>
-                    <div class="mb-4">
-                        <label for="number" class="block text-gray-700">{{ __('Phone') }}</label>
-                        <input id="number" type="text" x-model="checkoutDetails.number" class="w-full p-2 border border-gray-300 rounded">
-                    </div>
-                    <div class="col-12 col-sm-4 mb-3">
-                        <div class="form-group">
-                            <?php
-                            $field_name = 'in_place';
-                            $field_label = "Order";
-                            $field_placeholder = "-- Select an option --";
-                            $required = "required";
-                            $select_options = [
-                                '1' => 'Ditempat',
-                                '0' => 'Take Away',
-                            ];
-                            ?>
-                            {{ html()->label($field_label, $field_name)->class('form-label') }} {!! field_required($required) !!}
-                            {{ html()->select($field_name, $select_options)->placeholder($field_placeholder)->class('form-control select2')->attributes(["x-model" => "checkoutDetails.in_place", "$required"]) }}
-                        </div>
+                <div class="mb-4">
+                    <label for="number" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {{ __('Phone') }}
+                    </label>
+                    <input id="number" type="text" x-model="checkoutDetails.number"
+                           class="block w-full p-3 text-sm border rounded-md border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                </div>
+                <div class="col-12 col-sm-4 mb-3">
+                    <div class="form-group">
+                        <?php
+                        $field_name = 'in_place';
+                        $field_label = "Order";
+                        $field_placeholder = "-- Select an option --";
+                        $required = "required";
+                        $select_options = [
+                            '1' => 'Ditempat',
+                            '0' => 'Take Away',
+                        ];
+                        ?>
+                        {{ html()->label($field_label, $field_name)->class('form-label text-gray-700 dark:text-gray-300') }} {!! field_required($required) !!}
+                        {{ html()->select($field_name, $select_options)->placeholder($field_placeholder)->class('form-control select2 block w-full p-3 text-sm border rounded-md border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white')->attributes(["x-model" => "checkoutDetails.in_place", "$required"]) }}
                     </div>
                 </div>
-                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button type="button" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-hide="authentication-modal">
-                        Cancel
-                    </button>
-                    <button id="submit-order-button" type="button" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Selesai Order</button>
-                </div>
+            </div>
+            <div class="flex items-center justify-between p-6 border-t border-gray-300 dark:border-gray-700">
+                <button type="button" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:focus:ring-red-600" data-modal-hide="authentication-modal">
+                    Cancel
+                </button>
+                <button id="submit-order-button" type="button" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-600">
+                    Selesai Order
+                </button>
             </div>
         </div>
     </div>
@@ -137,8 +143,8 @@
                 </div>
                 <div class="p-6 space-y-6">
                     <p class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Transaction Success') }}</p>
-                    <p>{{ __('Please show this message to the cashier.') }}</p>
-                    <p>{{ __('Invoice: ') }}<span id="invoice-number"></span></p>
+                    <p class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Please show this message to the cashier.') }}</p>
+                    <p class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Invoice: ') }}<span id="invoice-number"></span></p>
                 </div>
                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                     <button id="success-modal-ok-button" type="button" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
